@@ -1,11 +1,9 @@
 <template>
   <div class="new-todo">
-    <form>
-      <input v-model="tache" type="text" placeholder="Nouvelle tâche ..." />
-      <button type="submit" class="button is-primary" @click="sendTask">
-        <i class="fas fa-plus"></i>
-      </button>
-    </form>
+    <input v-model="task" type="text" placeholder="Nouvelle tâche ..." />
+    <button type="submit" class="button is-primary" @click="sendTask">
+      <i class="fas fa-plus"></i>
+    </button>
   </div>
 </template>
 
@@ -14,15 +12,15 @@ export default {
   name: "new-todo",
   methods: {
     sendTask: function () {
-      if (this.tache != "") {
-        this.$emit("newTask", this.tache);
-        this.tache = "";
+      if (this.task != "") {
+        this.$emit("newTask", this.task);
+        this.task = "";
       }
     },
   },
   data: function () {
     return {
-      tache: "",
+      task: "",
     };
   },
 };
