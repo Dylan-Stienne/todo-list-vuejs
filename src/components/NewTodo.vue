@@ -1,11 +1,9 @@
 <template>
   <div class="new-todo">
-    <form>
-      <input v-model="task" type="text" placeholder="Nouvelle tâche ..." />
-      <button type="submit" class="button is-primary" @click="createNewTask">
-        <i class="fas fa-plus"></i>
-      </button>
-    </form>
+    <input v-model="task" type="text" placeholder="Nouvelle tâche ..." />
+    <button type="submit" class="button is-primary" @click="createNewTask">
+      <i class="fas fa-plus"></i>
+    </button>
   </div>
 </template>
 
