@@ -1,8 +1,8 @@
 <template>
   <div class="new-todo">
     <form>
-      <input v-model="tache" type="text" placeholder="Nouvelle tâche ..." />
-      <button type="submit" class="button is-primary" @click="sendTask">
+      <input v-model="task" type="text" placeholder="Nouvelle tâche ..." />
+      <button type="submit" class="button is-primary" @click="createNewTask">
         <i class="fas fa-plus"></i>
       </button>
     </form>
@@ -10,20 +10,21 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "new-todo",
-  methods: {
-    sendTask: function () {
-      if (this.tache != "") {
-        this.$emit("newTask", this.tache);
-        this.tache = "";
-      }
-    },
-  },
   data: function () {
     return {
-      tache: "",
+      task: "",
     };
+  },
+  methods: {
+    ...mapActions(["createTask"]),
+    createNewTask: function () {
+      this.createTask(this.task);
+      this.task = "";
+    },
   },
 };
 </script>

@@ -1,42 +1,29 @@
 <template>
   <ul class="todo-list">
-    <Draggable
-      :list="list"
-      :disabled="!enabled"
-      class="list-group"
-      ghost-class="ghost"
-      :move="checkMove"
-      @start="dragging = true"
-      @end="dragging = false"
-    >
-      <li class="task" v-for="(task, index) in tasks" :key="index">
-        <div class="is-flex align-item-center">
-          <input type="checkbox" @click="check(index)" v-model="task.done" />
-          <span class="ml-3" :class="{ checked: task.done }">{{
-            task.name
-          }}</span>
-        </div>
-        <button class="button is-danger" @click="remover(index)">
-          <i class="fas fa-trash"></i>
-        </button>
-      </li>
-    </Draggable>
+    <li class="task" v-for="(task, index) in tasks" :key="index">
+      <div class="is-flex align-item-center">
+        <input type="checkbox" @click="checkTask(index)" v-model="task.done" />
+        <span class="ml-3" :class="{ checked: task.done }">
+          {{ task.name }}
+        </span>
+      </div>
+      <button class="button is-danger" @click="removeTask(index)">
+        <i class="fas fa-trash"></i>
+      </button>
+    </li>
   </ul>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "todo-list",
-  props: {
-    tasks: { default: [] },
+  computed: {
+    ...mapState(["tasks"]),
   },
   methods: {
-    check: function (index) {
-      this.$emit("check", index);
-    },
-    remover: function (index) {
-      this.$emit("remover", index);
-    },
+    ...mapActions(["removeTask", "checkTask"]),
   },
 };
 </script>

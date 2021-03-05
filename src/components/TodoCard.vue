@@ -7,7 +7,7 @@
       <b v-else>{{ tasks.length }} tâches</b>
     </div>
     <div class="new">
-      <NewTodo @newTask="addTask" />
+      <NewTodo />
     </div>
     <div class="actions mb-3">
       <button class="button is-warning" @click="removeAllTasksDone">
@@ -18,13 +18,14 @@
       </button>
     </div>
     <ul class="tasks">
-      <TodoList :tasks="tasks" @check="checkTask" @remover="removeTask" />
+      <TodoList />
     </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { mapActions, mapState } from "vuex";
 import NewTodo from "@/components/NewTodo.vue";
 import TodoList from "@/components/TodoList.vue";
 
@@ -39,27 +40,11 @@ export default {
       default: "",
     },
   },
-  data: function () {
-    return { tasks: [] };
-  },
   methods: {
-    addTask: function (tache) {
-      this.tasks.push({ name: tache, done: false });
-    },
-    removeTask: function (index) {
-      this.tasks.splice(index, 1);
-    },
-    removeAllTasks: function () {
-      this.tasks = [];
-    },
-    removeAllTasksDone: function () {
-      this.tasks = this.tasks.filter((task) => task.done === false);
-    },
-    checkTask: function (index) {
-      this.tasks[index].done = !this.tasks[index].done;
-    },
+    ...mapActions(["removeAllTasks", "removeAllTasksDone"]),
   },
   computed: {
+    ...mapState(["tasks"]),
     today: function () {
       return new Date().toLocaleString("fr-FR", {
         weekday: "long",
