@@ -1,22 +1,45 @@
 <template>
   <ul class="todo-list">
-    <li class="task" v-for="(task, index) in tasks" :key="index">
-      <div class="is-flex align-item-center">
-        <input type="checkbox" @click="check(index)" v-model="task.done"/>
-        <span class="ml-3" :class="{ checked: task.done }">{{
-          task.name
-        }}</span>
-      </div>
-      <button class="button is-danger" @click="remover(index)"><i class="fas fa-trash"></i></button>
-    </li>
+    <Draggable
+      :list="list"
+      :disabled="!enabled"
+      class="list-group"
+      ghost-class="ghost"
+      :move="checkMove"
+      @start="dragging = true"
+      @end="dragging = false"
+    >
+      <li class="task" v-for="(task, index) in tasks" :key="index">
+        <div class="is-flex align-item-center">
+          <input type="checkbox" @click="check(index)" v-model="task.done" />
+          <span class="ml-3" :class="{ checked: task.done }">{{
+            task.name
+          }}</span>
+        </div>
+        <button class="button is-danger" @click="remover(index)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </li>
+    </Draggable>
   </ul>
 </template>
 
 <script>
+import Draggable from "@/vuedraggable";
+
 export default {
   name: "todo-list",
+  components: {
+    Draggable,
+  },
   props: {
     tasks: { default: [] },
+  },
+  data: function () {
+    return {
+      enable: true,
+      dragging: false,
+    };
   },
   methods: {
     check: function (index) {

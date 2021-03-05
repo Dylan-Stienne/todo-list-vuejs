@@ -6,16 +6,16 @@
       <b v-if="tasks.length <= 1">{{ tasks.length }} tâche</b>
       <b v-else>{{ tasks.length }} tâches</b>
     </div>
-    <div class="actions">
+    <div class="new">
+      <NewTodo @newTask="addTask" />
+    </div>
+    <div class="actions mb-3">
       <button class="button is-warning" @click="removeAllTasksDone">
         <i class="fas fa-trash mr-3"></i> les tâches terminées
       </button>
       <button class="button is-danger" @click="removeAllTasks">
         <i class="fas fa-trash mr-3"></i> toutes les tâches
       </button>
-    </div>
-    <div class="new">
-      <NewTodo @newTask="addTask" />
     </div>
     <ul class="tasks">
       <TodoList :tasks="tasks" @check="checkTask" @remover="removeTask" />
