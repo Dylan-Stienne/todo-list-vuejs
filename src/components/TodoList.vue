@@ -25,21 +25,10 @@
 </template>
 
 <script>
-import Draggable from "@/vuedraggable";
-
 export default {
   name: "todo-list",
-  components: {
-    Draggable,
-  },
   props: {
     tasks: { default: [] },
-  },
-  data: function () {
-    return {
-      enable: true,
-      dragging: false,
-    };
   },
   methods: {
     check: function (index) {
